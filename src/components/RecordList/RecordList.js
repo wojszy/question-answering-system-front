@@ -27,7 +27,7 @@ const RecordList = ({ records }) => {
       </div>
       {records.length > 2 && (
         <p className="scroll-message">
-          Przewiń w dół, aby zobaczyć więcej nagraniach.
+          Przewiń w dół, aby zobaczyć więcej nagrań.
         </p>
       )}
     </div>

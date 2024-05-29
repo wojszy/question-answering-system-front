@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import Login from "./screens/login/Login";
 import sampleRecords from "./records/sampleRecords";
 import UploadForm from "./components/UploadForm/UploadForm";
 import RecordList from "./components/RecordList/RecordList";
+import Register from "./screens/register/Register";
 
 const App = () => {
   const [records, setRecords] = useState([]);
@@ -24,6 +26,8 @@ const App = () => {
 
   return (
     <div className="container">
+      <Login />
+      <Register />
       <h1>Inteligentny system odpowiedzi na pytania</h1>
 
       <RecordList records={records} />
