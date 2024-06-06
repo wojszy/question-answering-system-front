@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   AppBar,
@@ -12,6 +12,8 @@ import {
   Box,
   CssBaseline,
   Divider,
+  Container,
+  Grid,
 } from "@mui/material";
 import { Logout } from "@mui/icons-material";
 import { useAuth } from "../../auth/AuthContext";
@@ -21,6 +23,28 @@ const drawerWidth = 240;
 
 const ChatScreen = () => {
   const { handleLogout, currentUser } = useAuth();
+  const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleUpload = async () => {
+    // Symulacja przetwarzania pliku
+    const simulatedTranscription = "Symulowana transkrypcja pliku audio.";
+    const simulatedResponse = "Symulowana odpowiedź sztucznej inteligencji.";
+
+    setMessages((prevMessages) => [
+      { type: "user", text: simulatedTranscription },
+      { type: "ai", text: simulatedResponse },
+      ...prevMessages,
+    ]);
+  };
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
@@ -32,7 +56,7 @@ const ChatScreen = () => {
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: "border-box",
-            background: "linear-gradient(to bottom, #3f51b5, #ffffff)", // Gradient tła
+            background: "linear-gradient(to bottom, #3f51b5, #ffffff)",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -43,12 +67,14 @@ const ChatScreen = () => {
           <Box
             sx={{
               padding: "10px",
-
               color: "white",
               textAlign: "center",
             }}
           >
-            <Typography variant="h6">{`Witaj użytkowniku ${currentUser?.email}`}</Typography>
+            <Link to="/home">
+              <img src="logo.png" alt="QA logo" width="220" />
+            </Link>
+            <Typography variant="h7">{` ${currentUser?.email}`}</Typography>
           </Box>
           <Divider />
           <Box sx={{ overflow: "auto", flexGrow: 1 }}>
@@ -79,7 +105,37 @@ const ChatScreen = () => {
       >
         <Toolbar />
         <Typography variant="h2">Chat</Typography>
-        <UploadForm onUpload={() => {}} />
+        <Box sx={{ flexGrow: 1 }}>
+          <Container maxWidth="sm" sx={{ height: 400, overflowY: "auto" }}>
+            {messages.map((message, index) => (
+              <Grid
+                key={index}
+                container
+                justifyContent={
+                  message.type === "user" ? "flex-end" : "flex-start"
+                }
+              >
+                <Grid item xs={6}>
+                  <Box
+                    sx={{
+                      bgcolor:
+                        message.type === "user"
+                          ? "primary.main"
+                          : "secondary.main",
+                      color: "white",
+                      p: 2,
+                      borderRadius: "10px",
+                      mb: 2,
+                    }}
+                  >
+                    <Typography variant="body1">{message.text}</Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            ))}
+          </Container>
+        </Box>
+        <UploadForm onUpload={handleUpload} />
         <Box sx={{ mt: "auto" }}>
           <Typography
             variant="body2"

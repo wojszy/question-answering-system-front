@@ -53,7 +53,10 @@ const HistoryScreen = () => {
               textAlign: "center",
             }}
           >
-            <Typography variant="h6">{`Witaj użytkowniku ${currentUser?.email}`}</Typography>
+            <Link to="/home">
+              <img src="logo.png" alt="QA logo" width="220" />
+            </Link>
+            <Typography variant="h7">{` ${currentUser?.email}`}</Typography>
           </Box>
           <Divider />
           <Box sx={{ overflow: "auto", flexGrow: 1 }}>

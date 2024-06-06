@@ -15,9 +15,6 @@ import RecordItem from "../RecordItem/RecordItem";
 const RecordList = ({ records }) => {
   return (
     <Box sx={{ width: "100%", mt: 3 }}>
-      <Typography variant="h4" gutterBottom component="div">
-        Historia nagrań
-      </Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

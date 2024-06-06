@@ -47,7 +47,10 @@ const HomeScreen = () => {
               textAlign: "center",
             }}
           >
-            <Typography variant="h6">{`Witaj użytkowniku ${currentUser?.email}`}</Typography>
+            <Link to="/home">
+              <img src="logo.png" alt="QA logo" width="220" />
+            </Link>
+            <Typography variant="h7">{` ${currentUser?.email}`}</Typography>
           </Box>
           <Divider />
           <Box sx={{ overflow: "auto", flexGrow: 1 }}>
@@ -72,19 +75,58 @@ const HomeScreen = () => {
           </ListItem>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, display: "flex", flexDirection: "column" }}
+      >
         <Toolbar />
-        <Typography variant="h2">Wybierz opcję z menu obok</Typography>
-      </Box>
-      <Box sx={{ mt: "auto" }}>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          align="center"
-          sx={{ mt: 2 }}
-        >
-          Szymański, Zięba, Ziomek, Erbel
+        <Typography variant="h2">Strona główna</Typography>
+        <Typography variant="h3" sx={{ mt: 4, mb: 4 }}>
+          Informacje o stronie frontendowej
         </Typography>
+
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          1. Struktura aplikacji: Nasza aplikacja składa się z kilku komponentów
+          React, z których każdy jest odpowiedzialny za renderowanie różnych
+          części interfejsu użytkownika.
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          2. Komponenty Material-UI: Wykorzystujemy komponenty Material-UI,
+          które są zgodne z Material Design. Przykładowo, `Drawer` służy do
+          tworzenia bocznego menu, a `Typography` do renderowania tekstu.
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          3. Obsługa autoryzacji: Nasza aplikacja ma mechanizm uwierzytelniania
+          użytkowników. Po zalogowaniu wyświetlamy powitanie użytkownika oraz
+          dostępne funkcje.
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          4. Nawigacja: Korzystamy z React Router do nawigacji między różnymi
+          widokami aplikacji przy użyciu komponentu `Link`, który renderuje
+          linki nawigacyjne.
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          5. Dynamiczne dane: Wykorzystujemy dynamiczne dane, takie jak
+          aktualnie zalogowany użytkownik (`currentUser`) oraz nagrania
+          (`records`), które są renderowane w odpowiednich częściach interfejsu.
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          6. Stylizacja i układ: Oferujemy niestandardową stylizację
+          komponentów, taką jak gradientowe tło menu bocznego czy odpowiednie
+          rozmieszczenie elementów na stronie. Stylizacja jest realizowana przy
+          pomocy `sx` w Material-UI, co umożliwia definiowanie stylów wewnątrz
+          komponentów React.
+        </Typography>
+        <Box sx={{ mt: "auto" }}>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            align="center"
+            sx={{ mt: 2 }}
+          >
+            Szymański, Zięba, Ziomek, Erbel
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
