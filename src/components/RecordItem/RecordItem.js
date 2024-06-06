@@ -1,19 +1,13 @@
 import React from "react";
-import "./RecordItem";
+import { TableRow, TableCell } from "@mui/material";
 
 const RecordItem = ({ record }) => {
-  const downloadUrl = `/api/download/${record.audioFileName}`;
-
   return (
-    <tr className="record-item">
-      <td>
-        <a href={downloadUrl} download className="record-link">
-          {record.audioFileName}
-        </a>
-      </td>
-      <td>{record.transcription}</td>
-      <td>{record.answer}</td>
-    </tr>
+    <TableRow>
+      <TableCell>{record.audioFileName}</TableCell>
+      <TableCell>{record.transcription}</TableCell>
+      <TableCell>{record.answer}</TableCell>
+    </TableRow>
   );
 };
 

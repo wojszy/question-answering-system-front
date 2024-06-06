@@ -1,38 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import "./App.css";
-import Login from "./screens/login/Login";
-import sampleRecords from "./records/sampleRecords";
-import UploadForm from "./components/UploadForm/UploadForm";
-import RecordList from "./components/RecordList/RecordList";
-import Register from "./screens/register/Register";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import LoginScreen from "./screens/login/Login";
+import RegisterScreen from "./screens/register/Register";
+import HomeScreen from "./screens/home/Home";
+import ChatScreen from "./screens/chat/ChatScreen";
+import HistoryScreen from "./screens/history/History";
+import { AuthProvider, useAuth } from "./auth/AuthContext";
 
 const App = () => {
-  const [records, setRecords] = useState([]);
+  return (
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LoginRouteWrapper} />
+          <Route path="/register" component={RegisterScreen} />
+          <PrivateRoute path="/home" component={HomeScreen} />
+          <PrivateRoute path="/chat" component={ChatScreen} />
+          <PrivateRoute path="/history" component={HistoryScreen} />
+        </Switch>
+      </Router>
+    </AuthProvider>
+  );
+};
 
-  useEffect(() => {
-    setRecords(sampleRecords);
-    //fetchRecordsFromDatabase();
-  }, []);
+const LoginRouteWrapper = (props) => {
+  const { isAuthenticated, handleLogin } = useAuth();
 
-  // const fetchRecordsFromDatabase = async () => {
-  //   try {
-  //     const response = await fetch("/api/records");
-  //     const data = await response.json();
-  //     setRecords(data);
-  //   } catch (error) {
-  //     console.error("Błąd podczas pobierania nagrań:", error);
-  //   }
-  // };
+  return isAuthenticated ? (
+    <Redirect to="/home" />
+  ) : (
+    <LoginScreen onLogin={handleLogin} {...props} />
+  );
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { isAuthenticated } = useAuth();
 
   return (
-    <div className="container">
-      <Login />
-      <Register />
-      <h1>Inteligentny system odpowiedzi na pytania</h1>
-
-      <RecordList records={records} />
-      <UploadForm onUpload={() => {}} />
-    </div>
+    <Route
+      {...rest}
+      render={(props) =>
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+      }
+    />
   );
 };
 

@@ -3,8 +3,9 @@
 }
 
 .table-container {
-  max-height: 300px; /* Maksymalna wysokość kontenera tabeli */
-  overflow-y: auto; /* Umożliwia przewijanie w pionie */
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 2px;
 }
 
 .table {
@@ -31,11 +32,10 @@
   color: #007bff;
 }
 
-/* Dodatkowe style dla nagłówków tabeli */
 .sticky-header {
   position: sticky;
   top: 0;
   background-color: #007bff;
   color: #ffffff;
-  z-index: 1; /* Upewnij się, że nagłówki będą na wierzchu */
+  z-index: 1;
 }

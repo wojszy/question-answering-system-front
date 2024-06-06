@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   LoginBox,
@@ -8,15 +9,15 @@ import {
   ErrorMessage,
 } from "./LoginStyles.js";
 
-const Login = () => {
+const LoginScreen = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email === "admin@example.com" && password === "password") {
-      alert("Login successful!");
+    if (email === "hej@wp.pl" && password === "123") {
+      onLogin(email);
     } else {
       setError("Invalid email or password");
     }
@@ -44,9 +45,12 @@ const Login = () => {
           <Button type="submit">Zaloguj</Button>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </form>
+        <p>
+          Nie masz konta? <Link to="/register">Zarejestruj się</Link>
+        </p>
       </LoginBox>
     </Container>
   );
 };
 
-export default Login;
+export default LoginScreen;
