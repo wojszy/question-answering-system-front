@@ -8,18 +8,39 @@ import {
   Button,
   ErrorMessage,
 } from "./LoginStyles.js";
+import axios from "axios";
 
 const LoginScreen = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (email === "hej@wp.pl" && password === "123") {
-      onLogin(email);
-    } else {
-      setError("Invalid email or password");
+    try {
+      const response = await axios.post(
+        "http://localhost:8090/realms/qas/protocol/openid-connect/token",
+        {
+          client_id: "qas-client2",
+          username: email,
+          password: password,
+          grant_type: "password",
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      // Odczytaj token z odpowiedzi Keycloak
+      const accessToken = response.data.access_token;
+      // Zapisz token w localStorage
+      localStorage.setItem("accessToken", accessToken);
+
+      console.log("Udane logowanie:", response.data);
+    } catch (error) {
+      console.error("Błąd logowania:", error);
+      setError("Nieprawidłowy email lub hasło");
     }
   };
 

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./UploadForm.css";
 
 const UploadForm = ({ onUpload }) => {
   const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -11,15 +13,25 @@ const UploadForm = ({ onUpload }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("audioFile", file);
+    formData.append("file", file); // Zmieniamy nazwę na "file" zgodnie z wymogiem API
 
     try {
-      // Tutaj można dodać logikę wysyłania pliku na serwer
-      console.log("Przesłano plik:", file.name);
+      const response = await axios.post(
+        "http://localhost:8080/api/recording",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Przesłano plik:", response.data);
       // Wywołujemy callback onUpload po udanym przesłaniu pliku
       onUpload();
     } catch (error) {
       console.error("Błąd podczas przesyłania pliku:", error);
+      setError("Wystąpił błąd podczas przesyłania pliku. Spróbuj ponownie.");
     }
   };
 
@@ -35,6 +47,7 @@ const UploadForm = ({ onUpload }) => {
         <button type="submit" className="form-button">
           Prześlij
         </button>
+        {error && <p className="error-message">{error}</p>}
       </form>
     </div>
   );

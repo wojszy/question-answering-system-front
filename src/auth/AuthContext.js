@@ -13,7 +13,8 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    setCurrentUser(null); // Wylogowujemy użytkownika, ustawiając currentUser na null
+    setCurrentUser(null);
+    localStorage.removeItem("accessToken"); // Usuwamy token z localStorage
   };
 
   return (

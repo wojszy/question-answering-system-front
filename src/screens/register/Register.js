@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom"; // Użycie useHistory
 import {
   Container,
   LoginBox,
@@ -13,16 +15,41 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const history = useHistory(); // Zamiast useNavigate, używamy useHistory
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    // Here, you would typically handle the registration logic (e.g., API call)
-    alert("Registration successful!");
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/user",
+        {
+          username: email,
+          credentials: [
+            {
+              value: password,
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Rejestracja udana:", response.data);
+      alert("Registration successful!");
+      history.push("/"); // Przekierowanie do ekranu logowania
+    } catch (error) {
+      console.error("Błąd rejestracji:", error);
+      setError("Registration failed");
+      history.push("/");
+    }
   };
 
   return (

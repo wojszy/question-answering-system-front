@@ -20,13 +20,14 @@ const RecordList = ({ records }) => {
           <TableHead>
             <TableRow>
               <TableCell>Plik Audio</TableCell>
-              <TableCell>Pytanie</TableCell>
+              <TableCell>Transkrypcja</TableCell>
               <TableCell>Odpowiedź</TableCell>
+              <TableCell>Data Utworzenia</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {records.map((record) => (
-              <RecordItem key={record.id} record={record} />
+              <RecordItem key={record.idRecording} record={record} />
             ))}
           </TableBody>
         </Table>

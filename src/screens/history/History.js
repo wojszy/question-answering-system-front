@@ -16,8 +16,7 @@ import {
 import { Logout } from "@mui/icons-material";
 import { useAuth } from "../../auth/AuthContext";
 import RecordList from "../../components/RecordList/RecordList";
-import sampleRecords from "../../records/sampleRecords";
-
+import axios from "axios";
 const drawerWidth = 240;
 
 const HistoryScreen = () => {
@@ -25,7 +24,30 @@ const HistoryScreen = () => {
   const [records, setRecords] = useState([]);
 
   useEffect(() => {
-    setRecords(sampleRecords);
+    const fetchRecords = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/recording/all?size=100&page=0",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setRecords(response.data);
+      } catch (error) {
+        console.error("Błąd podczas pobierania danych:", error);
+      }
+    };
+
+    fetchRecords();
   }, []);
 
   return (
