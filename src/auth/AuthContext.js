@@ -1,34 +1,32 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const history = useHistory();
 
-  const handleLogin = (email) => {
-    setIsAuthenticated(true);
-    setCurrentUser({ email });
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      //setCurrentUser({ email: 'example@example.com' });
+    } else {
+      //history.push('/login');
+    }
+  }, [history]);
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
+    localStorage.removeItem('accessToken');
     setCurrentUser(null);
-    localStorage.removeItem("accessToken"); // Usuwamy token z localStorage
+    history.push('/login');
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated,
-        currentUser,
-        handleLogin,
-        handleLogout,
-      }}
-    >
+    <AuthContext.Provider value={{ currentUser, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

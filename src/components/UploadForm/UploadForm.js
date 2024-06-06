@@ -17,7 +17,7 @@ const UploadForm = ({ onUpload }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/recording",
+        "/api/recording",
         formData,
         {
           headers: {

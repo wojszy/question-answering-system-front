@@ -33,7 +33,7 @@ const HistoryScreen = () => {
 
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/recording/all?size=100&page=0",
+          "/api/recording/all?size=100&page=0",
           {
             headers: {
               Authorization: `Bearer ${token}`,
