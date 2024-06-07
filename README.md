@@ -10,7 +10,7 @@
 
 **Stylizacja i układ:** Oferujemy niestandardową stylizację komponentów, taką jak gradientowe tło menu bocznego czy odpowiednie rozmieszczenie elementów na stronie. Stylizacja jest realizowana przy pomocy `sx` w Material-UI, co umożliwia definiowanie stylów wewnątrz komponentów React.
 
-
+**Część backendowa:** [Link](https://github.com/karolzieba/question-answering-system-back)
 
 
 # Getting Started with Create React App
