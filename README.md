@@ -1,3 +1,18 @@
+**Struktura aplikacji:** Nasza aplikacja składa się z kilku komponentów React, z których każdy jest odpowiedzialny za renderowanie różnych części interfejsu użytkownika.
+
+**Komponenty Material-UI:** Wykorzystujemy komponenty Material-UI, które są zgodne z Material Design. Przykładowo, `Drawer` służy do tworzenia bocznego menu, a `Typography` do renderowania tekstu.
+
+**Obsługa autoryzacji:** Nasza aplikacja ma mechanizm uwierzytelniania użytkowników. Po zalogowaniu wyświetlamy powitanie użytkownika oraz dostępne funkcje.
+
+**Nawigacja:** Korzystamy z React Router do nawigacji między różnymi widokami aplikacji przy użyciu komponentu `Link`, który renderuje linki nawigacyjne.
+
+**Dynamiczne dane:** Wykorzystujemy dynamiczne dane, takie jak aktualnie zalogowany użytkownik (`currentUser`) oraz nagrania (`records`), które są renderowane w odpowiednich częściach interfejsu.
+
+**Stylizacja i układ:** Oferujemy niestandardową stylizację komponentów, taką jak gradientowe tło menu bocznego czy odpowiednie rozmieszczenie elementów na stronie. Stylizacja jest realizowana przy pomocy `sx` w Material-UI, co umożliwia definiowanie stylów wewnątrz komponentów React.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
