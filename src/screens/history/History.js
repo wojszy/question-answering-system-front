@@ -17,10 +17,11 @@ import { Logout } from "@mui/icons-material";
 import { useAuth } from "../../auth/AuthContext";
 import RecordList from "../../components/RecordList/RecordList";
 import axios from "axios";
+
 const drawerWidth = 240;
 
 const HistoryScreen = () => {
-  const { handleLogout, currentUser } = useAuth();
+  const { handleLogout } = useAuth();
   const [records, setRecords] = useState([]);
 
   useEffect(() => {
@@ -32,14 +33,11 @@ const HistoryScreen = () => {
       }
 
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/recording/all?size=100&page=0",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get("/api/recording/all?size=100&page=0", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setRecords(response.data);
       } catch (error) {
@@ -78,7 +76,6 @@ const HistoryScreen = () => {
             <Link to="/home">
               <img src="logo.png" alt="QA logo" width="220" />
             </Link>
-            <Typography variant="h7">{` ${currentUser?.email}`}</Typography>
           </Box>
           <Divider />
           <Box sx={{ overflow: "auto", flexGrow: 1 }}>

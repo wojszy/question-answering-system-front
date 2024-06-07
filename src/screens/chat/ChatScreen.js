@@ -22,7 +22,7 @@ import UploadForm from "../../components/UploadForm/UploadForm";
 const drawerWidth = 240;
 
 const ChatScreen = () => {
-  const { handleLogout, currentUser } = useAuth();
+  const { handleLogout } = useAuth();
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
 
@@ -74,7 +74,6 @@ const ChatScreen = () => {
             <Link to="/home">
               <img src="logo.png" alt="QA logo" width="220" />
             </Link>
-            <Typography variant="h7">{` ${currentUser?.email}`}</Typography>
           </Box>
           <Divider />
           <Box sx={{ overflow: "auto", flexGrow: 1 }}>
@@ -133,6 +132,7 @@ const ChatScreen = () => {
                 </Grid>
               </Grid>
             ))}
+            <div ref={messagesEndRef} />
           </Container>
         </Box>
         <UploadForm onUpload={handleUpload} />

@@ -15,11 +15,11 @@ import {
 } from "@mui/material";
 import { Logout } from "@mui/icons-material";
 import { useAuth } from "../../auth/AuthContext";
-import axios from "axios";
+
 const drawerWidth = 240;
 
 const HomeScreen = () => {
-  const { handleLogout, currentUser } = useAuth();
+  const { handleLogout } = useAuth();
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
@@ -42,7 +42,6 @@ const HomeScreen = () => {
           <Box
             sx={{
               padding: "10px",
-
               color: "white",
               textAlign: "center",
             }}
@@ -50,7 +49,6 @@ const HomeScreen = () => {
             <Link to="/home">
               <img src="logo.png" alt="QA logo" width="220" />
             </Link>
-            <Typography variant="h7">{` ${currentUser?.email}`}</Typography>
           </Box>
           <Divider />
           <Box sx={{ overflow: "auto", flexGrow: 1 }}>
@@ -84,7 +82,6 @@ const HomeScreen = () => {
         <Typography variant="h3" sx={{ mt: 4, mb: 4 }}>
           Informacje o stronie frontendowej
         </Typography>
-
         <Typography variant="body1" sx={{ mb: 2 }}>
           1. Struktura aplikacji: Nasza aplikacja składa się z kilku komponentów
           React, z których każdy jest odpowiedzialny za renderowanie różnych
