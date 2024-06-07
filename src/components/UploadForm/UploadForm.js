@@ -16,16 +16,17 @@ const UploadForm = ({ onUpload }) => {
     formData.append("file", file); // Zmieniamy nazwę na "file" zgodnie z wymogiem API
 
     try {
+      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        "http://localhost:8080/api/recording",
+        "/api/recording",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer " + token // Dodaj token do nagłówka
           },
         }
       );
-
       console.log("Przesłano plik:", response.data);
       // Wywołujemy callback onUpload po udanym przesłaniu pliku
       onUpload();

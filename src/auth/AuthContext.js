@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setIsAuthenticated(false);
-    history.push("/login");
+    history.push("/");
   };
 
   return (

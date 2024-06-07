@@ -26,7 +26,7 @@ const RegisterScreen = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/user",
+        "/api/user",
         {
           username: email,
           credentials: [
